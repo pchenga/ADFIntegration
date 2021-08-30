@@ -1,0 +1,32 @@
+{
+	"name": "pl_append_variable",
+	"properties": {
+		"activities": [
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "nums",
+					"value": "6"
+				}
+			}
+		],
+		"variables": {
+			"nums": {
+				"type": "Array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-08-19T10:59:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

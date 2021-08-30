@@ -1,0 +1,27 @@
+{
+	"name": "powerquery_emp_dept",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "ds_emp_csv",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ds_emp_csv",
+					"dataset": {
+						"referenceName": "ds_emp_csv",
+						"type": "DatasetReference"
+					}
+				},
+				{
+					"name": "ds_dept_csv",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ds_dept_csv",
+					"dataset": {
+						"referenceName": "ds_dept_csv",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared ds_emp_csv = let\r\n  AdfDoc = AzureStorage.DataLakeContents(\"https://azurepracticeadlsgen2.dfs.core.windows.net/csv-input/emp_data.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),\r\n  #\"Merged queries\" = Table.NestedJoin(PromotedHeaders, {\"deptid\"}, ds_dept_csv, {\"deptid\"}, \"ds_dept_csv\", JoinKind.LeftOuter),\r\n  #\"Expanded ds_dept_csv\" = Table.ExpandTableColumn(#\"Merged queries\", \"ds_dept_csv\", {\"deptid\", \"deptname\"}, {\"ds_dept_csv.deptid\", \"ds_dept_csv.deptname\"}),\r\n  #\"Removed columns\" = Table.RemoveColumns(#\"Expanded ds_dept_csv\", {\"eid\", \"ds_dept_csv.deptid\"}),\r\n  #\"Filtered rows\" = Table.SelectRows(#\"Removed columns\", each [deptid] = \"101\")\r\nin\r\n  #\"Filtered rows\";\r\nshared ds_dept_csv = let\r\n  AdfDoc = AzureStorage.DataLakeContents(\"https://azurepracticeadlsgen2.dfs.core.windows.net/csv-input/dept_data.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true])\r\nin\r\n  PromotedHeaders;\r\nshared UserQuery = let\r\n  Source = ds_emp_csv\r\nin\r\n  Source;\r\n"
+		}
+	}
+}

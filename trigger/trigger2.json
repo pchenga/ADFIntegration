@@ -1,0 +1,29 @@
+{
+	"name": "trigger2",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"folderPath": "@triggerBody().folderPath",
+					"fileName": "@triggerBody().fileName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/event-input/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/0efd9013-ece2-4183-b254-92006ee35cc0/resourceGroups/azurepractice-rg/providers/Microsoft.Storage/storageAccounts/azurepracticeblob",
+			"events": [
+				"Microsoft.Storage.BlobCreated",
+				"Microsoft.Storage.BlobDeleted"
+			]
+		}
+	}
+}

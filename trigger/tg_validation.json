@@ -1,0 +1,24 @@
+{
+	"name": "tg_validation",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_validatuion_delete",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 1,
+				"startTime": "2021-08-17T02:02:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_database",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "power_query_ouout"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "azurepractice-adf",
+	"properties": {
+		"globalParameters": {
+			"floderPath": {
+				"type": "string",
+				"value": "/input/csv"
+			},
+			"env": {
+				"type": "string",
+				"value": "development"
+			}
+		}
+	},
+	"location": "westus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bb854b9b-f73c-46ab-8668-333e61d056f6",
+		"tenantId": "679778ea-f927-4f69-82ec-2c0db8e0f803"
+	}
+}

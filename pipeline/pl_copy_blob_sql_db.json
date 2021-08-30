@@ -1,0 +1,114 @@
+{
+	"name": "pl_copy_blob_sql_db",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy data from blob azure db",
+				"description": "copy data from blob azure db",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 5,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DROP TABLE IF EXISTS dbo.emp_ouputput_table",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "eid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "eid",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ename",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ename",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "salary",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "salary",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "bonus",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "bonus",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_blob_csv_source",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_db",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-08-09T02:17:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

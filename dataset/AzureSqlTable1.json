@@ -1,0 +1,42 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_database",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ename",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sal",
+				"type": "nvarchar"
+			},
+			{
+				"name": "deptid",
+				"type": "nvarchar"
+			},
+			{
+				"name": "deptname",
+				"type": "nvarchar"
+			},
+			{
+				"name": "country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "sal1",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp_dept_ouput"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,29 @@
+{
+	"name": "ds_adls_csv_validation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adlsgen2_storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "covid_19_india.csv",
+				"fileSystem": "staging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Sno\tDate\tTime\tState/UnionTerritory\tConfirmedIndianNational\tConfirmedForeignNational\tCured\tDeaths\tConfirmed\t\t\t\t",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
