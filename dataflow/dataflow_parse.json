@@ -1,0 +1,35 @@
+{
+	"name": "dataflow_parse",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable7",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable8",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Parse1"
+				},
+				{
+					"name": "Parse2"
+				}
+			],
+			"script": "source(output(\n\t\tsid as integer,\n\t\tsname as string,\n\t\temails as string,\n\t\taddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 parse(Email_Ids = emails ? (email1 as string,\n\t\temail2 as string),\n\tformat: 'delimited',\n\tcolumnNamesAsHeader: false,\n\tcolumnDelimiter: '|',\n\tnullValue: '') ~> Parse1\nParse1 parse(AddressFields = address ? (area as string,\n\t\tcity as string),\n\tformat: 'json',\n\tdocumentForm: 'singleDocument') ~> Parse2\nParse2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tsid,\n\t\tsname,\n\t\temail1 = Email_Ids.email1,\n\t\temail2 = Email_Ids.email2,\n\t\tarea = AddressFields.area,\n\t\tcity = AddressFields.city\n\t)) ~> sink1"
+		}
+	}
+}
