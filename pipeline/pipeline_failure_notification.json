@@ -78,7 +78,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n \"pipeline_name\": \"@{pipeline().Pipeline}\",\n \"datafactory_name\": \"@{pipeline().DataFactory}\",\n \"error_message\": \"@{activity('Copy data1').errors.Message}\"\n}",
+						"value": "{\n \"pipeline_name\": \"@{pipeline().Pipeline}\",\n \"datafactory_name\": \"@{pipeline().DataFactory}\",\n \"error_message\": \"@{activity('Copy data1').Error.Message}\"\n}",
 						"type": "Expression"
 					}
 				}
